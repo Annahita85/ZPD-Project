@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.error {color: #FF0000;}
+
+.backbottom { 
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+
+}
+.menubar{
+    background-color: skyblue;
+}
+.footer{
+    background-color: skyblue;
+    text-align: center;
+    margin: auto;
+}
+.menu{
+    background-color:whitesmoke;
+}
+.mydive{
+    background-color: yellow;
+}
+ul.mydiv{
+    list-style-type: none;
+}
+ul.mydiv > li:hover{
+
+    background-color: aqua;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: content;
+    
+   
+}
+
+ul.mydiv > li {
+    float: left;
+    margin: 10px;
+}
+li.dropdown ul a{
+    color: rgb(231, 231, 114);
+}
+   
+li.dropdown > ul{
+    display: none;
+    list-style-type: none;
+    background-color: steelblue;
+    padding: 10px;
+    
+}
+
+li.dropdown:hover > ul{
+    display: block;
+    
+    
+}
+
+li.dropdown > ul li:hover{
+    background-color: tomato;
+    
+}
+
+@media screen and (max-width: 700px) {
+    
+  }
+  
+@media screen and (max-width: 400px) {
+    
+    }
+
+
+
+
+
+
+
+    
