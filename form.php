@@ -10,8 +10,16 @@
   <br><br><br>  
 <?php
 
-$nameErr = $emailErr = $genderErr = $passErr = "";
-$name = $email = $gender = $password =  "";
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
+
+$nameErr = $emailErr = $genderErr = $passErr =$confErr= "";
+$name = $email = $gender = $password = $confirm =  "";
 
 //if (!empty($_POST)){
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -38,9 +46,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (empty($_POST["password"])) {
     $password = "";
+    $passwort_hash = password_hash($passwort, PASSWORD_DEFAULT);
+    // $option = [
+    //   "cost" => "10"
+    // ];
+   
+    // echo password_hash($password , PASSWORD_BCRYPT , $option);         //password Hashing
   } else {
     $passErr = test_input($_POST["password"]);
   }
+
+  if (empty($_POST["confirm"]) && $confirm == $password) {
+    $confirm = "" ;
+  } else {
+    $$confErr = test_input($_POST["confirm"]);
+  }
+  
 
   if (empty($_POST["gender"])) {
     $genderErr = "Gender is required";
@@ -49,12 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
+
 ?>
 
 <h2>Responsive Form</h2>
@@ -100,28 +116,39 @@ function test_input($data) {
             <span class="error">* <?php echo $passErr;?></span>
           </div>
         </div>
+        <br>
+        <div class="row">
+          <div class="col-25">
+            <label for="confirm">Confirm Password :</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="confirm" name="confirm" placeholder="Confirm Your password..">
+            <span class="error">* <?php echo $confErr;?></span>
+          </div>
+        </div>
 
         <br><br>
-        Gender:
+        <!-- Gender:
         <input type="radio" name="gender" <?php if (isset($gender) && $gender=="female") echo "checked";?> value="female">Female
         <input type="radio" name="gender" <?php if (isset($gender) && $gender=="male") echo "checked";?> value="male">Male
         <input type="radio" name="gender" <?php if (isset($gender) && $gender=="other") echo "checked";?> value="other">Other  
-        <span class="error">* <?php echo $genderErr;?></span>
+        <span class="error">* <?php echo $genderErr;?></span> -->
         <br><br>
         <input type="submit" name="submit" value="Submit">  
       </form>
     </div>  
-    <!-- <div class="output">
+    <div class="output">
       <?php
       echo "<h2>Your Input:</h2>";
-      echo "<br>";
-      echo "your Name : ".$name;
-      echo "<br>";
-      echo "your Email : ".$email;
-      echo "<br>";
-      echo "gender : ".$gender;
+      // echo "<br>";
+      // echo "your Name : ".$name;
+      // echo "<br>";
+      // echo "your Email : ".$email;
+      // echo "<br>";
+      // echo "Gender : ".$gender;
+      print_r($_POST);
       ?>
-    </div> -->
+    </div> 
   </body>
 <br><br>
 <footer class="footer">
