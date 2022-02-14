@@ -1,6 +1,6 @@
 <?php
-
-print_r($_POST);
+session_start();
+// print_r($_POST);
 
 include_once 'config.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -11,25 +11,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-try{
-    $db = new PDO('mysql:host=10.100.5.220;port=3306;dbname=tabellename;charset=utf8','ben','onlinewache',array(
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    ));
-    }catch(PDOException $e){
-        echo $e->getMessage();
-    }
 
+    $db = new PDO('mysql:host=10.100.5.220;dbname=ben_test1', 'ben', 'onlinewache');
+exit();
 
 function insertUserData($name, $email, $password)
 {
     global $db;
-    $sql = "INSERT INTO tabellename (name, email, password) VALUES (:fname, :email, :password)";
+    $sql = "INSERT INTO tabellename (name, email, password) VALUES (:name, :email, :password)";
     $stmt = $db->prepare($sql);
     $stmt->execute([':name' => $name, ':email' => $email, ':password' => $password]);
     return $stmt->rowCount();
 }
 
-
+var_dump($_POST);exit;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['name']) and isset($_POST['email']) and isset($_POST['password'])) {
