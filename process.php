@@ -1,6 +1,21 @@
 <?php
 session_start();
-// print_r($_POST);
+function insertUserData($name, $email, $password)
+{
+    $connection = new mysqli("10.100.5.220", "ben", "onlinewache", "ben_test1", "3306");
+
+    $sql = "INSERT INTO tabellenname (name, email, pass) VALUES (?,?,?);";
+
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("sss",$name,$mail,$pass);
+
+    $stmt->execute();
+
+    $result = $stmt->fetch();
+
+    var_dump($stmt);
+    return $stmt->rowCount();
+}
 
 include_once 'config.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -10,21 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
-
-
-    $db = new PDO('mysql:host=10.100.5.220;dbname=ben_test1', 'ben', 'onlinewache');
-exit();
-
-function insertUserData($name, $email, $password)
-{
-    global $db;
-    $sql = "INSERT INTO tabellename (name, email, password) VALUES (:name, :email, :password)";
-    $stmt = $db->prepare($sql);
-    $stmt->execute([':name' => $name, ':email' => $email, ':password' => $password]);
-    return $stmt->rowCount();
-}
-
-var_dump($_POST);exit;
+// var_dump($_POST);exit;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['name']) and isset($_POST['email']) and isset($_POST['password'])) {
