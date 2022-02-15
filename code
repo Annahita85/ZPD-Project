@@ -1,0 +1,51 @@
+<?php
+                          
+                    // $verbindungZurDb = new PDO('mysql:host=10.100.5.220;dbname=ben_test1', 'ben', 'onlinewache');
+
+                    // $query = $verbindungZurDb->prepare('SELECT * FROM tabellenname LIMIT 100');
+                    // $execResult = $query->execute();
+                    
+                    // $execResult = $verbindungZurDb->exec('SELECT * FROM tabellenname LIMIT 100');
+
+                    // $verbindungZurDb = new PDO('mysql:host=10.100.5.220:3306;dbname=ben_test1', 'ben', 'onlinewache');
+                    
+
+?>
+
+
+
+<?php
+        //  $statement = $pdo->query("SELECT VERSION()");
+        //  $result = $statement->fetch();
+
+        //  var_dump($result);
+           
+        //  $res = $pdo->exec("
+        //         INSERT INTO
+        //             tabellenname
+        //                 (name, Email , pass)
+        //             VALUES
+                        
+        //             ('Anvbvbna' , 'aa@gmail.com' , '123')
+                        
+        //     ");
+
+        // var_dump($res);
+?>
+
+// function insertUserData($name, $email, $password)
+// {
+//     global $db;
+//     $sql = "INSERT INTO tabellename (name, email, password) VALUES (:name, :email, :password)";
+//     $stmt = $db->prepare($sql);
+//     $stmt->execute([':name' => $name, ':email' => $email, ':password' => $password]);
+//     return $stmt->rowCount();
+// }
+
+
+//     $db = new PDO('mysql:host=10.100.5.220;dbname=ben_test1', 'ben', 'onlinewache');
+// exit();
+
+
+
+
