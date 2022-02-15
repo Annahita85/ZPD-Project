@@ -1,23 +1,9 @@
 	
 <?php 
-session_start();
-$pdo = new PDO('mysql:host=10.100.5.220;dbname=ben_test1', 'ben', 'onlinewache');
+// session_start();
+// $pdo = new PDO('mysql:host=10.100.5.220;dbname=ben_test1', 'ben', 'onlinewache');
 ?>
 
-
-<!DOCTYPE html> 
-<html> 
-<head>
-  <title> login Page</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="stylpage.css">
-  <link rel="stylesheet" href="csslogin.css">    
-</head> 
-<body>
-<?php include("menu.html"); ?>
-
- 
 <?php
 
 $showFormular = true; 
@@ -86,7 +72,3 @@ if(isset($_GET['register'])) {
     <p>Forgot your password? <a href="#">Click here to reset your Password</a>.</p>
   </div>
 
-
-</body>
-</html>
- 
