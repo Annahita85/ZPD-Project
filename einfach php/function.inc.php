@@ -52,7 +52,7 @@ function uidExists($conn ,$username ,$email) {
         exit();
     }
     mysqli_stmt_bind_param($stmt, "ss", $username, $email);
-    
+
     //mysqli_stmt_execute($stmt);
     $stmt->execute();
 
@@ -98,7 +98,28 @@ function emptyInputlogin($username ,$pwd ){
 }
 
 function loginUser($conn ,$username , $pwd){
-    $uidExists = uidExists($conn ,$username , $pwd );
+    $uidExists = uidExists($conn ,$username , $username );
 
+    if ($uidExists === false){
+        header ("location: ../login.php?error=wronglogin");
+        exit();
+
+    };
+ $pwdHashed = $uidExists["usersPwd"];
+ $checkPwd = password_verify($pwd , $pwdHashed);
+
+ if ($checkPwd === false){
+
+    header ("location: ../login.php?error=wronglogin");
+    exit(); 
+ }
+ elseif ($checkPwd === true){
+    session_start();
+    $_SESSION ["userid"] = $uidExists["userId"];
+    $_SESSION ["userid"] = $uidExists["usersUid"];
+    header ("location: ../index.php");
+    exit();
+
+ }
 
 }
