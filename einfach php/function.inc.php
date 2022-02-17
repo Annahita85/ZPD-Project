@@ -43,19 +43,22 @@ function pwdMatch($pwd , $pwdRepeat) {
     }
     return $result;
 }
-function uidExists($conn ,$username ,$emial) {
-    $sql = "SELECT * FROM user WHERE usersUid =? OR usersEmail = ? ;";
+
+function uidExists($conn ,$username ,$email) {
+    $sql = "SELECT * FROM user WHERE usersUid =? OR userEmail = ? ;";
     $stmt = mysqli_stmt_init($conn);
-    if (mysqli_stmt_preparre($stmt, $sql)){
+    if (!mysqli_stmt_prepare($stmt, $sql)){
         header("location: ../einfach php/signup.php?error=Statment Failed");
         exit();
     }
-    mysqli_stmt_bind_parm($stmt, "ss", $username,$email);
-    mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_param($stmt, "ss", $username, $email);
+    
+    //mysqli_stmt_execute($stmt);
+    $stmt->execute();
 
-    $resultData = mysqli_stmt_get_result ($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
 
-    if ($row = mysqli_fetch-assoc($resultData)){
+    if ($row = mysqli_fetch_assoc($resultData)){
         return $row;
     }
     else{
@@ -67,18 +70,35 @@ function uidExists($conn ,$username ,$emial) {
 }
 
 function createUser($conn , $name , $email , $username , $pwd) {
-    $sql = "INSERT INTO user (usersName , usersEmail, usersUid, usersPwd) VALUE (?,?,?,?)";
+    $sql = "INSERT INTO user (userName , userEmail, usersUid, usersPwd) VALUES (?,?,?,?)";
     $stmt = mysqli_stmt_init($conn);
-    if (mysqli_stmt_preparre($stmt, $sql)){
-        header("location: ../einfach php/signup.php?error=Statment Failed");
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../einfach php/signup.php?error=StatmentFailed");
         exit();
     }
 
     $hashedPwd = password_hash($pwd , PASSWORD_DEFAULT);
     
-    mysqli_stmt_bind_parm($stmt, "ssss", $name , $email , $username , $pwd);
+    mysqli_stmt_bind_param($stmt, "ssss", $name , $email , $username , $pwd);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
     header("location: ../einfach php/signup.php?error=none");
+}
+
+function emptyInputlogin($username ,$pwd ){
+    $result;
+    if( empty($username) || empty($pwd)){
+        $result = true ;
+    }
+    else {
+        $result = false ;
+    }
+    return $result;
+}
+
+function loginUser($conn ,$username , $pwd){
+    $uidExists = uidExists($conn ,$username , $pwd );
+
+
 }
