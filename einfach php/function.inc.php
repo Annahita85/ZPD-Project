@@ -101,25 +101,26 @@ function loginUser($conn ,$username , $pwd){
     $uidExists = uidExists($conn ,$username , $username );
 
     if ($uidExists === false){
-        header ("location: ../login.php?error=wronglogin");
+        header ("location: ../login.php?error=wrongloginuid");
         exit();
 
-    };
- $pwdHashed = $uidExists["usersPwd"];
- $checkPwd = password_verify($pwd , $pwdHashed);
+    }
+    
+    $pwdHashed = $uidExists["userpwd"];
+    $checkPwd = password_verify($pwd , $pwdHashed);
 
- if ($checkPwd === false){
+    if ($checkPwd === false){
 
-    header ("location: ../login.php?error=wronglogin");
-    exit(); 
- }
- elseif ($checkPwd === true){
-    session_start();
-    $_SESSION ["userid"] = $uidExists["userId"];
-    $_SESSION ["userid"] = $uidExists["usersUid"];
-    header ("location: ../index.php");
-    exit();
+        header ("location: ../login.php?error=wrongloginpwd");
+        exit(); 
+    }
+    elseif ($checkPwd === true){
+        session_start();
+        $_SESSION ["userid"] = $uidExists["userId"];
+        $_SESSION ["userid"] = $uidExists["usersUid"];
+        header ("location: ../index.php");
+        exit();
 
- }
+    }
 
 }
