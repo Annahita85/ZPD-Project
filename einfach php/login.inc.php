@@ -1,12 +1,12 @@
 <?php
 if (isset($_POST["submit"])){
 
-    $username = $_POST["pwd"];
-    $username = $_POST["pwd"];
+    $username = $_POST["uid"];
+    $pwd = $_POST["pwd"];
 
 
-    require_once'dbh.inc.php';
-    require_once'function.inc.php';
+    require_once 'dbh.inc.php';
+    require_once 'function.inc.php';
 
 
     if (emptyInputlogin($username ,$pwd)!== false){
@@ -19,5 +19,6 @@ if (isset($_POST["submit"])){
 }
 
 else {
-    header("location: ../einfach php/login.php");  
+    header("location: ../einfach php/login.php"); 
+    exit(); 
 }
