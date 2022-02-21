@@ -79,7 +79,7 @@ function createUser($conn , $name , $email , $username , $pwd) {
 
     $hashedPwd = password_hash($pwd , PASSWORD_DEFAULT);
     
-    mysqli_stmt_bind_param($stmt, "ssss", $name , $email , $username , $pwd);
+    mysqli_stmt_bind_param($stmt, "ssss", $name , $email , $username , $hashedPwd);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
@@ -101,24 +101,24 @@ function loginUser($conn ,$username , $pwd){
     $uidExists = uidExists($conn ,$username , $username );
 
     if ($uidExists === false){
-        header ("location: ../login.php?error=wrongloginuid");
+        header ("location: login.php?error=wrongloginuid");
         exit();
 
     }
     
-    $pwdHashed = $uidExists["userpwd"];
+    $pwdHashed = $uidExists["usersPwd"];
     $checkPwd = password_verify($pwd , $pwdHashed);
 
     if ($checkPwd === false){
 
-        header ("location: ../login.php?error=wrongloginpwd");
+        header ("location: login.php?error=wrongloginpwd");
         exit(); 
     }
     elseif ($checkPwd === true){
         session_start();
-        $_SESSION ["userid"] = $uidExists["userId"];
-        $_SESSION ["userid"] = $uidExists["usersUid"];
-        header ("location: ../index.php");
+        $_SESSION ["userid"] = $uidExists["usersId"];
+        $_SESSION ["useruid"] = $uidExists["usersUid"];
+        header ("location: index.php");
         exit();
 
     }
