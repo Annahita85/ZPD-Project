@@ -7,7 +7,7 @@
     <body>
         <main>
             <p>SEND E-MAIL</p>
-            <form action="contactform.php" method="POST"></form>
+            <form action="contactform.php" method="POST">
                 <input type ="text" name="name" placeholder="Full name....">
                 <input type ="text" name="mail" placeholder="Your Email....">
                 <input type ="text" name="subject" placeholder="Subject....">
