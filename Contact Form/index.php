@@ -6,8 +6,8 @@
     </head>
     <body>
         <main>
-            <p>SEND EMAIL</p>
-            <form action="contactform.php" method="post"></form>
+            <p>SEND E-MAIL</p>
+            <form action="contactform.php" method="POST"></form>
                 <input type ="text" name="name" placeholder="Full name....">
                 <input type ="text" name="mail" placeholder="Your Email....">
                 <input type ="text" name="subject" placeholder="Subject....">
