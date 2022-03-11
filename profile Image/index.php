@@ -14,6 +14,29 @@
        
     <?php
 
+        $sql = "SELECT * FROM user";
+        $result = mysqli_query($conn , $sql);
+
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+               $id = $row ['id'];
+               $sqlimg = "SELECT * FROM profileimg WHERE userid ='$id'";
+               $resultimg= mysqli_query($conn , $sqlimg);
+               while ($rowimg = mysqli_fetch_assoc($resultimg)) {
+                   echo "<div>";
+                        if ($rowimg ['status'] == 0) {
+                            echo "<img src='uploads/profile".$id.".jpg'>";
+                        }else {
+                            echo "<img scr='uploads/profiledefault.jpg'>";
+                        }
+                        echo $row['username'];
+                   echo "</div>";
+               }
+            }
+        } else {
+            echo"There are no User yet!";
+        }   
+
         if (isset($_SESSION['id'])) {
             if ($_SESSION['id'] == 1 ) {       #==1
                 echo "You are logged in as user #1";
