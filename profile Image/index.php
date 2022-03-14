@@ -19,17 +19,22 @@
 
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
-               $id = $row ['id'];
+               $id = $row['id'];
                $sqlimg = "SELECT * FROM profileimg WHERE userid ='$id'";
                $resultimg= mysqli_query($conn , $sqlimg);
                while ($rowimg = mysqli_fetch_assoc($resultimg)) {
-                   echo "<div>";
+                   echo "<div class =user-container'>";
                         if ($rowimg ['status'] == 0) {
-                            echo "<img src='uploads/profile".$id.".jpg'>";
+                            $filenam = "profile".$sessionid."*";
+                            $fileinfo = glob($filenam);
+
+                            $fileext = explode(".", $fileinfo[0]);
+                            $fileactualext = $fileext[1];
+                            echo "<img src='uploads/profile".$id.".".$fileactualext."?".mt_rand().">";
                         }else {
                             echo "<img scr='uploads/profiledefault.jpg'>";
                         }
-                        echo $row['username'];
+                        echo "<p>". $row['username']."</p>";
                    echo "</div>";
                }
             }
@@ -47,6 +52,11 @@
                     <button type=' submit' name='submit'>UP LOAD</button>
                     
                 </form>";
+            echo "<form action='deleteprofile.php' method='POST'>
+    
+                    <button type=' submit' name='submit'>Delet profile image</button>
+            
+                  </form>";    
         }else {
             echo "You are not login!";
 
